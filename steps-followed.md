@@ -27,5 +27,20 @@
 
 #### First wait for the webserver pod to compeltely boot up
 * kubectl get pods --namespace airflow-cluster-namespace -w
-* kubectl port-forward svc/$RELEASE_NAME-webserver 8080:8080 --namespace $NAMESPACE
+* kubectl port-forward svc/airflow-webserver-7cb859dd8f-dvk8f 8080:8080 --namespace $NAMESPACE
+
+### Get airflow values from helm
+* helm show values apache-airflow/airflow > values.yaml
+
+### After updating helm values.yaml, apply the changes to airflow on k8s
+* helm upgrade --install airflow apache-airflow/airflow -n airflow-cluster-namespace -f values.yaml --debug
+
+### Build Dockerfile
+* sudo docker build -t airflow-custom:1.0.0 .
+
+### import Docker image into the K8s cluster
+* docker save <image_name> > <image_name>.tar
+* microk8s ctr image import <image_name>.tar
+
+
 
