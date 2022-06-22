@@ -43,10 +43,10 @@ securityContext: {}
 airflowHome: /opt/airflow
 
 # Default airflow repository -- overrides all the specific images below
-defaultAirflowRepository: apache/airflow
+defaultAirflowRepository: airflow-custom
 
 # Default airflow tag to deploy
-defaultAirflowTag: "2.3.0"
+defaultAirflowTag: "1.0.0"
 
 # Airflow version (Used to make some decisions based on Airflow Version being deployed)
 airflowVersion: "2.3.0"
@@ -227,7 +227,7 @@ rbac:
 
 # Airflow executor
 # One of: LocalExecutor, LocalKubernetesExecutor, CeleryExecutor, KubernetesExecutor, CeleryKubernetesExecutor
-executor: "CeleryExecutor"
+executor: "KubernetesExecutor"
 
 # If this is true and using LocalExecutor/KubernetesExecutor/CeleryKubernetesExecutor, the scheduler's
 # service account will have access to communicate with the api-server and launch pods.

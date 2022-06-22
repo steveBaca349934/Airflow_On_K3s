@@ -19,15 +19,15 @@
 
 ### Create k8s Namespace and Install Helm Chart
 * export NAMESPACE=airflow-cluster-namespace
-* kubectl create namespace $NAMESPACE
+* microk8s kubectl create namespace $NAMESPACE
 * export RELEASE_NAME=airflow-cluster-release
 * helm install $RELEASE_NAME apache-airflow/airflow --namespace $NAMESPACE --debug
 
 ### Forward the webserver to localhost:8080
 
 #### First wait for the webserver pod to compeltely boot up
-* kubectl get pods --namespace airflow-cluster-namespace -w
-* kubectl port-forward svc/airflow-webserver-7cb859dd8f-dvk8f 8080:8080 --namespace $NAMESPACE
+* microk8s kubectl get pods --namespace airflow-cluster-namespace -w
+* microk8s kubectl port-forward svc/airflow-webserver 8080:8080 --namespace $NAMESPACE
 
 ### Get airflow values from helm
 * helm show values apache-airflow/airflow > values.yaml
@@ -41,6 +41,16 @@
 ### import Docker image into the K8s cluster
 * docker save <image_name> > <image_name>.tar
 * microk8s ctr image import <image_name>.tar
+
+
+### Create Airflow superuser
+# create an admin user
+* airflow users create \
+    --username admin \
+    --firstname Steve \
+    --lastname Baca \
+    --role Admin \
+    --email smbaca99@gmail.com
 
 
 
