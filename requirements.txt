@@ -1,3 +1,4 @@
+kubernetes
 apache-airflow==2.3.0
 asgiref==3.4.1
 beautifulsoup4==4.10.0

@@ -29,6 +29,7 @@
 * microk8s kubectl get pods --namespace airflow-cluster-namespace -w
 * microk8s kubectl port-forward svc/airflow-webserver 8080:8080 --namespace $NAMESPACE
 
+
 ### Get airflow values from helm
 * helm show values apache-airflow/airflow > values.yaml
 
@@ -42,15 +43,25 @@
 * docker save <image_name> > <image_name>.tar
 * microk8s ctr image import <image_name>.tar
 
+### List images available in microk8s
+* microk8s ctr images ls
+* After this, redploy helm chart and it will use the new docker image if you have specified it correctly in values.yaml
+
 
 ### Create Airflow superuser
-# create an admin user
+### create an admin user
 * airflow users create \
     --username admin \
     --firstname Steve \
     --lastname Baca \
     --role Admin \
     --email smbaca99@gmail.com
+
+### Trouble shooting nginx 404 error for airflow webserver
+* microk8s kubectl <pod_name> logs -n $NAMESPACE
+* Added kubernetes to requirements.txt because I think that was causing issues
+* redployed with helm
+* ssh into pod to make sure that these changes successfully took place
 
 
 
