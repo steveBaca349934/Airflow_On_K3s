@@ -58,10 +58,21 @@
     --email smbaca99@gmail.com
 
 ### Trouble shooting nginx 404 error for airflow webserver
-* microk8s kubectl <pod_name> logs -n $NAMESPACE
+* microk8s kubectl logs <pod_name> -n $NAMESPACE
 * Added kubernetes to requirements.txt because I think that was causing issues
 * redployed with helm
 * ssh into pod to make sure that these changes successfully took place
+
+### Deployment steps
+* sudo docker images
+* sudo docker rmi <old_image_id>
+* sudo docker build -t airflow-custom:1.0.0 .
+* sudo docker save airflow-custom > airflow-custom.tar
+* microk8s ctr image import airflow-custom.tar
+* microk8s ctr images ls
+* helm upgrade --install airflow apache-airflow/airflow -n airflow-cluster-namespace -f values.yaml --debug
+* microk8s kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow-cluster-namespace
+* For whatever reason, may have to ssh into the webserver and run "airflow scheduler" to get your new dags to actually show up
 
 
 
