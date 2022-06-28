@@ -1,2 +1,4 @@
 /airflow_venv
 *.tar
+*__pycache__
+

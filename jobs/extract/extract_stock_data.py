@@ -61,6 +61,3 @@ def scrape_stock_tickers()->dict:
     res_dict['DJIA'] = djia_dict
 
     return res_dict
-
-if __name__ == '__main__':
-    print(scrape_stock_tickers())
