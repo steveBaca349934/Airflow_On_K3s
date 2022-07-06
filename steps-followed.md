@@ -63,6 +63,13 @@
 * redployed with helm
 * ssh into pod to make sure that these changes successfully took place
 
+### Debugging a partially built docker image
+* First do "sudo docker run -it <image_name> webserver"
+* Then open another terminal window and ssh into it
+
+### SSH Into Docker Container as Root
+* sudo docker exec -u 0 -it containername bash
+
 ### Deployment steps
 * sudo docker images
 * sudo docker rmi <old_image_id>
@@ -73,6 +80,3 @@
 * helm upgrade --install airflow apache-airflow/airflow -n airflow-cluster-namespace -f values.yaml --debug
 * microk8s kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow-cluster-namespace
 * For whatever reason, may have to ssh into the webserver and run "airflow scheduler" to get your new dags to actually show up
-
-
-

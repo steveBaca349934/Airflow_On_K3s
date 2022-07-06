@@ -10,6 +10,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.models.xcom import XCom
 import pendulum
+from datetime import timedelta
 
 
 def extract_stock_tickers(**kwargs) -> None:
@@ -29,7 +30,7 @@ with DAG(
     schedule_interval="@daily",
     start_date=pendulum.datetime(2021, 1, 1, tz="UTC"),
     catchup=False,
-    dagrun_timeout=datetime.timedelta(minutes=60),
+    dagrun_timeout=timedelta(minutes=60),
     tags=['orchestrate_stock_data_pull_dag'],
 
 ) as dag:
