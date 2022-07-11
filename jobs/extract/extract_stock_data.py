@@ -2,10 +2,9 @@ import re
 import yfinance as yf
 import pandas as pd
 import numpy as np
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import sys
 import copy
-from datetime import datetime, timedelta
 
 def scrape_stock_tickers()->dict:
     """

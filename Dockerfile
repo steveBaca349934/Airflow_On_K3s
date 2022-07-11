@@ -1,4 +1,4 @@
-FROM apache/airflow:latest-python3.7
+FROM apache/airflow:2.3.2-python3.7
 
 COPY requirements.txt .
 COPY dags $AIRFLOW_HOME/dags

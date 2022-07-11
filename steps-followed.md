@@ -70,10 +70,15 @@
 ### SSH Into Docker Container as Root
 * sudo docker exec -u 0 -it containername bash
 
+### Troubleshooting why airflow webserver isn't working
+* systemctl list-units --type=service
+* sudo lsof -i tcp:8080
+
 ### Deployment steps
 * sudo docker images
 * sudo docker rmi <old_image_id>
 * sudo docker build -t airflow-custom:1.0.0 .
+* rm airflow-custom.tar
 * sudo docker save airflow-custom > airflow-custom.tar
 * microk8s ctr image import airflow-custom.tar
 * microk8s ctr images ls

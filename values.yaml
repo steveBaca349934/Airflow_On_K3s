@@ -49,7 +49,7 @@ defaultAirflowRepository: airflow-custom
 defaultAirflowTag: "1.0.0"
 
 # Airflow version (Used to make some decisions based on Airflow Version being deployed)
-airflowVersion: "2.3.0"
+airflowVersion: "2.3.2"
 
 # Images
 images:
