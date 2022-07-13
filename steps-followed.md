@@ -73,6 +73,7 @@
 ### Troubleshooting why airflow webserver isn't working
 * systemctl list-units --type=service
 * sudo lsof -i tcp:8080
+* ssh'ing in and initializing the airflow DB seemed to solve this problem
 
 ### Deployment steps
 * sudo docker images
