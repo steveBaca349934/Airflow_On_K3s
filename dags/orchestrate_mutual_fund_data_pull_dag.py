@@ -6,6 +6,7 @@ sys.path.append("/home/oxbigsnowman/Airflow_On_Micro-k8s_Cluster/jobs/transform/
 sys.path.append("/opt/airflow/jobs/extract/")
 sys.path.append("/opt/airflow/jobs/transform/")
 from extract_mutual_fund_data import scrape_schwab_mf_tickers, scrape_schwab_etf_tickers
+from transform_mutual_fund_data import get_mutual_fund_data
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -40,9 +41,20 @@ def orchestrate_mutual_fund_data_pull_dag():
 
         return etf_ticks
 
+    @task
+    def retrieve_mutual_fund_data(schwab_mf_ticks: list, schwab_etf_ticks: list):
+
+        vanguard_dict, fidelity_dict, schwab_dict = get_mutual_fund_data(schwab_mf_ticks, schwab_etf_ticks)
+
+        dict_of_dict = {'vanguard': vanguard_dict,
+                        'fidelity': fidelity_dict,
+                        'schwab': schwab_dict}
+
+        return dict_of_dict
 
 
     mf_ticks = extract_mf_tickers()
     etf_ticks = extract_etf_tickers()
+    res_dict = retrieve_mutual_fund_data(mf_ticks, etf_ticks)
 
 mf_dag = orchestrate_mutual_fund_data_pull_dag()
