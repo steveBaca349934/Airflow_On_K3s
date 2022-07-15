@@ -12,7 +12,6 @@ from typing import List
 # For getting and parsing the data from the website
 from bs4 import BeautifulSoup
 import requests
-import re
 
 def handle_tickers_retrieve_data(tickers_list:list)->dict:
     """
@@ -26,6 +25,8 @@ def handle_tickers_retrieve_data(tickers_list:list)->dict:
     today = datetime.today()
 
     for ticker in tickers_list:
+
+        print(f"\n ticker {ticker} is running \n")
 
         ticker_obj = yf.Ticker(ticker)
         
@@ -53,7 +54,8 @@ def get_mutual_fund_data(schwab_mf_tickers: list, schwab_etf_tickers: list):
     return data for each ticker
     """
     vanguard_dict = handle_tickers_retrieve_data(
-       [ 'VTAPX', 
+       [ 
+        # 'VTAPX', 
         'VGPMX',
         'VHCIX',
         'VITAX',
@@ -64,6 +66,7 @@ def get_mutual_fund_data(schwab_mf_tickers: list, schwab_etf_tickers: list):
         'VMSXX',
         'VINIX']
     )
+    print("\n after one vanguard dict was handled \n")
 
     fidelity_dict = handle_tickers_retrieve_data(
         ['FDCPX'
@@ -78,11 +81,18 @@ def get_mutual_fund_data(schwab_mf_tickers: list, schwab_etf_tickers: list):
         ,'FLGEX']
     )
 
+    print("\n after second vanguard dict was handled \n")
+
     schwab_dict = handle_tickers_retrieve_data(
-        scrape_schwab_mf_tickers + scrape_schwab_etf_tickers
+        schwab_mf_tickers + schwab_etf_tickers
     )
 
 
     
 
     return vanguard_dict, fidelity_dict, schwab_dict
+
+
+if __name__ == '__main__':
+    print("cur running \n")
+    print(get_mutual_fund_data(['SWPPX'],['SWPPX']))

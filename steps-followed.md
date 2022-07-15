@@ -84,5 +84,5 @@
 * microk8s ctr image import airflow-custom.tar
 * microk8s ctr images ls
 * helm upgrade --install airflow apache-airflow/airflow -n airflow-cluster-namespace -f values.yaml --debug
-* microk8s kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow-cluster-namespace
 * Also may have to kill the scheduler pods, because then it will restart with the updated docker image
+* microk8s kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow-cluster-namespace
